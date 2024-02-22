@@ -73,6 +73,14 @@ pipeline{
                }
             }
         }
+         stage('Upload Binaries to Jfrog Artifactory'){
+            steps {
+            sh 'jf rt upload --url http://18.221.167.191:8082/artifactory/' --access-token ${jfrog-artifactory} target/kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar java-web-app/'
+            }
+         }
+       
+
+
         stage('Docker Image Build'){
          when { expression {  params.action == 'create' } }
             steps{
